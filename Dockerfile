@@ -45,7 +45,7 @@ RUN make menuselect.makeopts
 RUN menuselect/menuselect \
   --disable BUILD_NATIVE \
   --enable cdr_csv \
-  # --enable chan_sip \
+  --enable chan_sip \
   --enable res_snmp \
   --enable res_http_websocket \
   --enable res_hep_pjsip \
@@ -134,7 +134,15 @@ WORKDIR /
 RUN sed -i -e 's/# MAXFILES=/MAXFILES=/' /usr/sbin/safe_asterisk
 
 # Copy in default configs
-COPY http.conf /etc/asterisk/http.conf
+COPY ./conf/http.conf /etc/asterisk/
+COPY ./conf/confbridge.conf /etc/asterisk/
+COPY ./conf/sip*.conf /etc/asterisk/
+COPY ./conf/extensions*.conf /etc/asterisk/
+COPY ./conf/musiconhold.conf /etc/asterisk/
+COPY ./conf/manager.conf /etc/asterisk/
+
+
+COPY ./sounds /var/lib/asterisk/sounds/
 
 # This is weird huh? I'd shell into the container and get errors about en_US.UTF-8 file not found
 # found @ https://github.com/CentOS/sig-cloud-instance-images/issues/71
