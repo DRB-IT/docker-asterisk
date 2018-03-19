@@ -15,7 +15,7 @@ docker run \
     --name $NAME_ASTERISK \
     -v $(pwd)/conf/:/etc/asterisk/ \
     --net=host \
-    -d -t michaelkrog/asterisk
+    -d -t asterisk-docker
 ```
 
 ## Building it.
